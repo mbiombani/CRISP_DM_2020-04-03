@@ -1,0 +1,807 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Crisp\_Dm}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    Context
+From World Health Organization - On 31 December 2019, WHO was alerted to several cases of pneumonia in Wuhan City, Hubei Province of China. The virus did not match any other known virus. This raised concern because when a virus is new, we do not know how it affects people.
+
+So daily level information on the affected people can give some interesting insights when it is made available to the broader data science community.
+
+Johns Hopkins University has made an excellent dashboard using the affected cases data. Data is extracted from the google sheets associated and made available here.
+
+
+Content
+2019 Novel Coronavirus (2019-nCoV) is a virus (more specifically, a coronavirus) identified as the cause of an outbreak of respiratory illness first detected in Wuhan, China. Early on, many of the patients in the outbreak in Wuhan, China reportedly had some link to a large seafood and animal market, suggesting animal-to-person spread. However, a growing number of patients reportedly have not had exposure to animal markets, indicating person-to-person spread is occurring. At this time, it’s unclear how easily or sustainably this virus is spreading between people - CDC
+
+This dataset has daily level information on the number of affected cases, deaths and recovery from 2019 novel coronavirus. Please note that this is a time series data and so the number of cases on any given day is the cumulative number.
+
+The data is available from 22 Jan, 2020.
+
+Column Description
+Main file in this dataset is covid19data.csv and the detailed descriptions are below.
+
+covid19data.csv
+
+Sno - Serial number
+ObservationDate - Date of the observation in MM/DD/YYYY
+Province/State - Province or state of the observation (Could be empty when missing)
+Country/Region - Country of observation
+Last Update - Time in UTC at which the row is updated for the given province or country. (Not standardised)
+Confirmed - Cumulative number of confirmed cases till that date
+Deaths - Cumulative number of of deaths till that date
+Recovered - Cumulative number of recovered cases till that date
+Apart from that these two files have individual level information
+
+COVIDopenlinelistdata.csv
+This file is originally obtained from this link
+
+COVID19linelist_data.csv
+This files is originally obtained from this link
+
+Country level datasets
+If you are interested in knowing country level data, please refer to the following Kaggle datasets:
+South Korea - https://www.kaggle.com/kimjihoo/coronavirusdataset
+Italy -
+https://www.kaggle.com/sudalairajkumar/covid19-in-italy
+
+Acknowledgements
+Johns Hopkins University for making the data available for educational and academic research purposes
+MoBS lab - https://www.mobs-lab.org/2019ncov.html
+World Health Organization (WHO): https://www.who.int/
+DXY.cn. Pneumonia. 2020. http://3g.dxy.cn/newh5/view/pneumonia.
+BNO News: https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/
+National Health Commission of the People’s Republic of China (NHC):
+http://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml
+China CDC (CCDC): http://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm
+Hong Kong Department of Health: https://www.chp.gov.hk/en/features/102465.html
+Macau Government: https://www.ssm.gov.mo/portal/
+Taiwan CDC: https://sites.google.com/cdc.gov.tw/2019ncov/taiwan?authuser=0
+US CDC: https://www.cdc.gov/coronavirus/2019-ncov/index.html
+Government of Canada: https://www.canada.ca/en/public-health/services/diseases/coronavirus.html
+Australia Government Department of Health: https://www.health.gov.au/news/coronavirus-update-at-a-glance
+European Centre for Disease Prevention and Control (ECDC): https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases
+Ministry of Health Singapore (MOH): https://www.moh.gov.sg/covid-19
+Italy Ministry of Health: http://www.salute.gov.it/nuovocoronavirus
+
+Inspiration
+Some useful insights that could be extracted from the dataset can be:
+
+The origin of the individuals who were in Wuhan before the outbreak (first confirmed case).
+Were men or women the most exposed?
+What are the headlines in the newspapers and what are the different sources?
+The most observed symptoms?
+    \section{A Look at the Data}\label{a-look-at-the-data}
+
+In order to get a better understanding of the data we will be looking at
+throughout, let's take a look at some of the characteristics of the
+dataset.
+
+First, let's read in the data and necessary libraries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COVID.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:}    id case\_in\_country  reporting\_date  \textbackslash{}
+          1 NaN       1/20/2020             NaN   
+          2 NaN       1/20/2020             NaN   
+          3 NaN       1/21/2020             NaN   
+          4 NaN       1/21/2020             NaN   
+          5 NaN       1/21/2020             NaN   
+          
+                                                       summary             location  \textbackslash{}
+          1  First confirmed imported COVID-19 pneumonia pa{\ldots}  Shenzhen, Guangdong   
+          2  First confirmed imported COVID-19 pneumonia pa{\ldots}             Shanghai   
+          3  First confirmed imported cases in Zhejiang: pa{\ldots}             Zhejiang   
+          4  new confirmed imported COVID-19 pneumonia in T{\ldots}              Tianjin   
+          5  new confirmed imported COVID-19 pneumonia in T{\ldots}              Tianjin   
+          
+            country  gender   age symptom\_onset  If\_onset\_approximated     {\ldots}      \textbackslash{}
+          1   China    male  66.0      01/03/20                    0.0     {\ldots}       
+          2   China  female  56.0     1/15/2020                    0.0     {\ldots}       
+          3   China    male  46.0      01/04/20                    0.0     {\ldots}       
+          4   China  female  60.0           NaN                    NaN     {\ldots}       
+          5   China    male  58.0           NaN                    NaN     {\ldots}       
+          
+            recovered symptom                                             source  \textbackslash{}
+          1         0     NaN               Shenzhen Municipal Health Commission   
+          2         0     NaN  Official Weibo of Shanghai Municipal Health Co{\ldots}   
+          3         0     NaN             Health Commission of Zhejiang Province   
+          4         0     NaN                                           人民日报官方微博   
+          5         0     NaN                                           人民日报官方微博   
+          
+                                                          link  Unnamed: 20 Unnamed: 21  \textbackslash{}
+          1  http://wjw.sz.gov.cn/wzx/202001/t20200120\_1898{\ldots}          NaN         NaN   
+          2  https://www.weibo.com/2372649470/IqogQhgfa?fro{\ldots}          NaN         NaN   
+          3  http://www.zjwjw.gov.cn/art/2020/1/21/art\_1202{\ldots}          NaN         NaN   
+          4        https://m.weibo.cn/status/4463235401268457?          NaN         NaN   
+          5        https://m.weibo.cn/status/4463235401268457?          NaN         NaN   
+          
+            Unnamed: 22 Unnamed: 23 Unnamed: 24 Unnamed: 25  
+          1         NaN         NaN         NaN         NaN  
+          2         NaN         NaN         NaN         NaN  
+          3         NaN         NaN         NaN         NaN  
+          4         NaN         NaN         NaN         NaN  
+          5         NaN         NaN         NaN         NaN  
+          
+          [5 rows x 26 columns]
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Provide the number of rows and columns in this dataset.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{num\PYZus{}rows} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{}Provide the number of rows in the dataset}
+         \PY{n}{num\PYZus{}cols} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{}Provide the number of columns in the dataset}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{num\PYZus{}rows}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows in the dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{num\PYZus{}cols}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns in the dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1085 rows in the dataset | 26 columns in the dataset
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Which columns had no missing values? Provide a set of column names
+  that have no missing values
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{no\PYZus{}nulls} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}Provide a set of columns with 0 missing values.}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{no\PYZus{}nulls}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'country', 'source', 'recovered', 'visiting\_Wuhan', 'death', 'location', 'link'\}
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Which columns have the most missing values? Provide a set of column
+  name that have more than 75\% if their values missing.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{most\PYZus{}missing\PYZus{}cols} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.75}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}Provide a set of columns with more than 75\PYZpc{} of the values missing}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{most\PYZus{}missing\PYZus{}cols}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Unnamed: 25', 'Unnamed: 21', 'exposure\_start', 'Unnamed: 20', 'Unnamed: 23', 'Unnamed: 24', 'Unnamed: 22', 'reporting\_date', 'symptom'\}
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Provide a pandas series of the different county values in the dataset.
+  Store this pandas series in origin\_vals. If you are correct, you
+  should see a bar chart of the proportion of origin of individuals.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{origin\PYZus{}vals} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{country}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}Provide a pandas series of the counts for each Country}
+         
+         \PY{p}{(}\PY{n}{status\PYZus{}vals}\PY{o}{/}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{where are you from ?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  Provide a pandas series of the different gender values in the dataset.
+  Store this pandas series in gender\_vals.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{gender\PYZus{}vals} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}Provide a pandas series of the counts for each Gender}
+         
+         \PY{p}{(}\PY{n}{gender\PYZus{}vals}\PY{o}{/}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{country == }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Canada}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ and (gender == }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{male}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ or gender == }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{female}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{visiting\PYZus{}Wuhan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}154}]:}                                                            visiting\_Wuhan
+          gender summary                                                           
+          female new confirmed COVID-19 patient in Toronto, Cana{\ldots}               1
+                 new confirmed COVID-19 patient in Toronto, Cana{\ldots}               0
+                 new confirmed COVID-19 patient in Toronto, Cana{\ldots}               1
+                 new confirmed COVID-19 patient in Toronto, Cana{\ldots}               1
+                 new confirmed COVID-19 patient in Vancouver, Ca{\ldots}               0
+                 new confirmed COVID-19 patient in Vancouver, Ca{\ldots}               0
+                 new confirmed COVID-19 patient in Vancouver, Ca{\ldots}               0
+                 new confirmed COVID-19 patient in Vancouver, Ca{\ldots}               0
+          male   new confirmed COVID-19 patient in Toronto, Cana{\ldots}               1
+                 new confirmed COVID-19 patient in Vancouver, Ca{\ldots}               0
+                 new confirmed COVID-19 patient in Vancouver, Ca{\ldots}               0
+                 new confirmed COVID-19 patient in Vancouver, Ca{\ldots}               1
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Write a function called get\_description that takes the df dataframe
+  and the column as a string, and returns a string of the description
+  for that column.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}description}\PY{p}{(}\PY{n}{column\PYZus{}name}\PY{p}{,} \PY{n}{df}\PY{o}{=}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    INPUT \PYZhy{} schema \PYZhy{} pandas dataframe with the df }
+         \PY{l+s+sd}{            column\PYZus{}name \PYZhy{} string \PYZhy{} the name of the column you would like to know about}
+         \PY{l+s+sd}{    OUTPUT \PYZhy{} }
+         \PY{l+s+sd}{            desc \PYZhy{} string \PYZhy{} the description of the column}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{desc} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{column\PYZus{}name}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{return} \PY{n}{desc}
+         
+         \PY{n}{get\PYZus{}description}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{source}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} This should return a string of the first summary column description}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} 'First confirmed imported COVID-19 pneumonia patient in Shenzhen (from Wuhan): male, 66, shenzheng residence, visited relatives in Wuhan on 12/29/2019, symptoms onset on 01/03/2020, returned to Shenzhen and seek medical care on 01/04/2020, hospitalized on 01/11/2020, sample sent to China CDC for testing on 01/18/2020, confirmed on 01/19/2020. 8 others under medical observation, contact tracing ongoing.'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{descrips} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{get\PYZus{}description}\PY{p}{(}\PY{n}{col}\PY{p}{)} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{source}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{descrips}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'new confirmed COVID-19 patient in Japan: male, 30s, returned to Wuhan on third flight 1/31/2020, no symptoms', 'First confirmed imported cases in Zhejiang: patient is male, 46, lives in Wuhan, self-driving from Wuhan to Hangzhou on 01/03/2020, symptom onset 01/04/2020, hospitalized on 01/17/2020, sample deliver to China CDC for testing on 01/20/2020, test positive on 01/21/2020.', 'new confirmed imported COVID-19 pneumonia patient in Beijing: male, 37, visited Wuhan on 01/10/2020, return to Beijing on 01/11/2020, symptoms onset on 01/14/2020, hospitalized on 01/20/2020.', 'new confirmed COVID-19 patient in Hong Kong: male, 80, visited Shenzhen for a few hours on 1/10/2020, flight to Japan on 1/17/2020 and returned to HK on cruise on 1/25/2020, symptom onset 1/19/2020, hospitalized on 1/30/2020 for high fever', 'new confirmed COVID-19 patient in Hong Kong: female, 55, aunt of 2/9-No.1, had hot pot with him on 1/26, lives in Sha Tin, symptom onset 1/30 (fever, cough, runny nose), went to doctor 1/30, admitted to hospital 2/9', 'new confirmed COVID-19 patient in South Korea: 1/30-No.1, male, 32, visited Wuhan and returned to 1/24/2020, no symptom on arrival', 'new confirmed COVID-19 patient in Rome, Italy: male, Chinese tourist, arrived in Milan over a week ago', 'new confirmed COVID-19 patient in Hong Kong: 1/24-No.1, married to 1/27-No.1, female, 62, lives in Wuhan, travelled from Wuhan to Shenzhenbei and then Hong Kong by train on 1/19/2020, symptom onset 1/20/2020 (fever, cough), hospitalized 1/23/2020, admitted for isolation 1/24/2020', 'new confirmed COVID-19 patient in Vietnam: male, 30, Vinh Phuc, returned from Wuhan for training, returned 1/17', 'new confirmed COVID-19 patient in Japan: male, in his 30s, Kanagawa resident, symptom onset 1/3/2020 in Wuhan (fever), returned to Japan 1/6/2020 and hospitalized, went to medical institution on 1/6/2020 and hospitalized 1/10/2020, recovered and discharged on 1/15/2020, in close contact with infected people', 'new confirmed COVID-19 patient in Taiwan: male, in his 50s, evacuated from Wuhan on 2/4, hospitalized', 'new confirmed COVID-19 patient in US: male, in his 30s, confirmed sick in Sohomish County, Washington, visited Wuhan, returned to the US on 1/15/2020, sought treatment at urgent care center 1/23/2020', 'new confirmed COVID-19 patient in Iran: Qom', 'new confirmed COVID-19 patient in Germany: another child of employee', 'new confirmed COVID-19 patient in Israel: female, returned 1/21 after being quarantined on cruise ship', 'new confirmed COVID-19 patient in US: male, in his 60s, husband of 1/24-No.1, Chicago, admitted to hospital 1/28/2020, symptom onset 1/28/2020', 'new confirmed COVID-19 patient in Taiwan: female, 55, works in Wuhan, arrived in Taiwan 1/20/2020, symptomatic (fever, cough, shortness of breath) on arrival, symptom onset 1/11/2020, confirmed 1/21/2020', 'First confirmed imported COVID-19 pneumonia patient in Shenzhen (from Wuhan): male, 66, shenzheng residence, visited relatives in Wuhan on 12/29/2019, symptoms onset on 01/03/2020, returned to Shenzhen and seek medical care on 01/04/2020, hospitalized on 01/11/2020, sample sent to China CDC for testing on 01/18/2020, confirmed on 01/19/2020. 8 others under medical observation, contact tracing ongoing.', 'new confirmed COVID-19 patient in France: female, 33, Chinese woman who recently returned from China, hospitalized in Paris', 'new confirmed COVID-19 patient in US: Wisconsin, came into contact with someone infected while traveling in China', 'new confirmed COVID-19 patient in Philippines: male, 44, from Wuhan, admitted to hospital on 1/25/2020 in Manila with fever, cough, and sore throat, died 2/1/2020, arrived 1/21/2020', 'new confirmed imported COVID-19 pneumonia patient 01/27-No.1 in Shaanxi: female, 36, Wuhan resident, flight to Xian, Shanxi on 01/21/2020, symptom onset on the plane, visited hospital on 01/25/2020, confirmed on 01/27/2020.', 'new confirmed COVID-19 patient in Lebanon: female, 45, arrived from Qom, Iran 1/20', 'new confirmed COVID-19 patient in France: 9, in contact with Briton who had been in Singapore and was positive', 'new confirmed COVID-19 patient in Nepal: male, 32, studying in Wuhan, arrived in Nepal 1/13/2020 from China, visited Kathmandu hospital (fever, breathing problems) 1/13/2020, discharged, symptom onset 1/3 (cough), discharged 1/17', "new confirmed COVID-19 patient in Finland: female, 32, Chinese traveler from Wuhan, in isolation at Lapland's hospital, arrived in Finland 1/23/2020 and left Wuhan 1/22/2020, symptom onset 1/26/2020 (fever), hospitalized 1/28/2020", 'new confirmed COVID-19 patient in Vancouver, Canada: female, 50s', 'new confirmed COVID-19 patient in South Korea: male, 55, arrived at Gimpo International Airport 1/22/2020, works in Wuhan, visited Chinese clinic 1/19/2020 after suffering from sore throat and other symptoms, symptom onset 1/10/2020, confirmed 1/23/2020, recovered 2/4/2020', 'First confirmed imported COVID-19 pneumonia patient in Fujian: male, 70, works in Wuhan, return to Fujian on 01/17/2020, visit clinic on 01/20/2020.', 'new confirmed COVID-19 patient in US: California, first case of community transmission, went to medical center 2/19, arrived from another hospital', 'new confirmed COVID-19 patient in Kuwait: returned from Iran', 'new confirmed COVID-19 patient in Paris, France: 1/28-No.1, male, 80, hospitalized in Paris on 1/25/2020 for fever, "severe", visiting France from Hubei province, arrived on 1/23/2020', 'Death from COVID-19 pneumonia in Wuhan: male, 61, symptom onset on 12/20/2019, hospitalized on 12/27/2019, death on 01/09/2020.', 'new confirmed COVID-19 patient in York, UK: 1/31-No.1, Chinese national, taken to infirmary', 'new confirmed COVID-19 patient in Singapore: 1/24-No.1, male, 66, Wuhan resident, arrived in Singapore 1/20/2020, symptom onset 1/21/2020 (fever and cough), hospitalized 1/22/2020, confirmed 1/23/2020.', 'new confirmed COVID-19 patient in Kerala, India: female, student at Wuhan University, isolated in hospital', 'new confirmed COVID-19 patient in Malaysia: female, 4, hospitalized in Langkawi, arrived on 1/20, developed fever, cough, flu, went to hospital 1/26', 'new confirmed COVID-19 patient in France: in contact with Briton who had been in Singapore and was positive', 'new confirmed COVID-19 patient in Iran: died, in Qom', 'new confirmed COVID-19 patient in Germany: male, 60, father of case 19, Baden-Wurttemberg', 'new confirmed COVID-19 patient in UAE: arrived from Wuhan', 'new confirmed COVID-19 patient in Toronto, Canada: female, in her 50s, has been in self-isolation at home since husband confirmed, arrived on 1/22/2020 after visiting Wuhan', 'new confirmed COVID-19 patient in Taiwan: male, 60s, symptom onset 1/27 (cough, shortness of breath), went to hospital 2/3, diagnosed with pneumonia, hospitalized 2/3, died 2/15', 'new confirmed COVID-19 patient in Japan: male, in his 40s, Wuhan resident, developed pneumonia and in hospital in Aichi, arrived 1/20/2020, symptom onset 1/22/2020 (fever), visited medical institution in Aichi Prefecture on 1/26/2020', 'new confirmed COVID-19 patient in UAE: female, 73, 1/29-No.1 (grandmother), arrived as tourists 1/16/2020, symptom onset 1/23/2020, sought medical help', 'new confirmed COVID-19 patient in Paris, France: male, 31, Wuhan resident, arrived in France 01/18/2020, symptom onset on 01/19/2020, hospitalized 01/25/2020.', 'new confirmed COVID-19 patient in Japan: female, in her 30s, Wuhan resident, arrived in Japan 01/18/2020, symptom onset on 01/21/2020 (fever, coughing), confirmed 1/23/2020 but not hospitalized (only minor symptoms), visited medical institution in Tokyo on 1/23/2020', 'new COVID-19 patient confirmed in Austria: 24, Innsbruck, from Lombardy', 'new confirmed COVID-19 patient in UAE: Filipino national, 34', 'new confirmed COVID-19 patient in Spain: female, Tenerife, traveled to Italy between 2/4-2/8', 'new confirmed COVID-19 patient in Hong Kong: 1/31-No.1, male, 39, lives in Kowloon, symptom onset 1/31/2020 (myalgia, fever), hospitalized 1/31/2020 and admitted for isolation and treatment, took train from Hong Kong to Wuhan on 1/21/2020 and from Changsha to Hong Kong on 1/23/2020, died 2/4/2020', 'new confirmed COVID-19 patient in Germany: male, 25, took trip to Milan, admitted to hospital 2/24, Baden-Wurttemberg', 'new confirmed COVID-19 patient in Toronto, Canada: male, 56, tested positive at provincial facility days after returning to Toronto from Wuhan via Guangzhou on 1/22/2020, mild symptoms on flight, a day after he went home a family member reported he felt ill, fever, cough, symptom onset 1/23', 'new confirmed COVID-19 patient in Vietnam: male, 50, Vinh Phuc, lives with daughter who was sent to Wuhan for training and confirmed to be infected, symptom onset 2/11 (tired)', 'new confirmed COVID-19 patient in Singapore: male, 31, Chinese national, evacuated from Wuhan on 1/26/2020, asymptomatic on flight by symptom onset 1/28/2020, went to clinic on 1/30/2020', 'new confirmed COVID-19 patient in Sweden: female, in her 20s, in Jonkoping county who had visited Wuhan, landed in Sweden 1/24/2020, a few days later developed cough and contacted local hospital,', 'new confirmed COVID-19 patient in Queensland, Australia: 1/29-No.1, 44, Chinese National, currently in hospital, travelled from Melbourne to the Gold Coast 1/27/2020, symptom onset and hospitalized 1/28/2020', 'new confirmed imported COVID-19 pneumonia in Tianjin: female, age 60, recently visited Wuhan, visited fever clinic on 01/19/2020 in Tianjin then quarantined immediately.', 'First confirmed imported COVID-19 pneumonia patient in Inner Mongolia: male, 30, Wuhan resident, arrived in Inner Mongolia from Wuhan on 01/21/2020, hospitalized on 01/20/2020.', 'First confirmed imported COVID-19 pneumonia patient in Sichuan (from Wuhan): Male, 34 years old, works in Wuhan, symptoms onset on 01/11/2020 in Chengdu.', 'new confirmed COVID-19 patient in South Korea: female, 35, Wuhan resident, arrived in Incheon international airport on 1/19/2020, isolated on entering South Korea with symptoms, symptom onset 1/18/2020 (high fever, chills, muscle pain), discharged 2/6', 'new confirmed COVID-19 patient in Hong kong: male, 54, went to doctor on 2/7, hospital on 2/10', 'new confirmed COVID-19 patient in Germany: male, worked at same company', 'new confirmed COVID-19 patient in Cambodia: male, 60, arrived from Wuhan 1/23/2020, Chinese national, symptom onset 1/25/2020 (fever and runny nose), confirmed 1/27/2020', 'new confirmed COVID-19 patient in Hong Kong: married to 2/5-No.1, female, 55, in hospital in Kwai Chung, in Japan 1/28 and returned 2/1, symptom onset 2/1 (sore throat, fever, diarrhea), consulted private doctor on 2/2/2020, visited hospital on 2/4 with husband, admitted 2/5', 'new confirmed COVID-19 patient in Japan: male, in his 50s, arrived on first evacuation flight from China on 1/29/2020 from Wuhan, treated in special medical faculity, symptoms (throat pain, fever), Wuhan resident, symptom onset 1/29/2020', 'new confirmed COVID-19 patient in Germany: contact of cases 21 and 22, NRW', 'new confirmed COVID-19 patient in London, UK: 2/6-No.1, male, 53, caught in Singapore from 1/20-1/22, stayed at French resort between 1/24-1/28', 'new confirmed COVID-19 patient in South Korea: 1/25-No.1, male, 54, visited Wuhan, arrived on 1/20/2020, symptom onset 1/22/2020 (fever, chills, muscle cramps), contacted health authorities and placed in isolation 1/25/2020, worked at "The Place" clothing store', 'new confirmed COVID-19 patient in UK: contracted virus in Tenerife', 'First confirmed imported COVID-19 pneumonia patient in Chongqing (from Wuhan): female, age 44, symptoms onset on 01/15/2020, laboratory confirmed on 01/21/2020.', 'new confirmed COVID-19 patient in NSW, Australia: male, 35, arrived in Sydney from Shenzhen on 1/6/2020, symptom onset 1/15/2020, did not visit Wuhan but had contact with a person from Wuhan diagnosed with the coronavirus', 'new confirmed COVID-19 patient in South Australia: male, 60, from Wuhan, now hospitalized, arrived on 1/21/2020', 'new confirmed COVID-19 patient in Toronto, Canada: female, 60s, travel history to Iran, went to hospital on 2/24', 'new confirmed COVID-19 patient in Japan: female, in her 20s, tour guide, no symptoms, on a bus driven by 1/28-No.1, lives in Chiba Prefecture, symptom onset 1/20/2020 (cough, runny nose), went to medical instution on 1/29/2020, joined tour on 1/17-1/22 as bus guide', 'new confirmed COVID-19 patient in Japan: male, in his 40s, evacuated from Wuhan 1/31/2020', 'new confirmed COVID-19 patient in France: female, 60, married to case 14', 'new confirmed COVID-19 patient in Malaysia: female, 65, wife of Singapore 1/24-No.1, treated in isolation wards in Selangor, light symptoms (dry cough), took plane from Guangzhou to Singapore on 1/20/2020.', 'new confirmed COVID-19 patient in Bordeaux, France: 1/25-No.1, male, 48, French citizen of Chinese origin, visited Wuhan as part of business trip, took plane from Wuhan to Netherlands to France on 1/22/2020, symptom onset on 1/23/2020, went to clinic 1/23/2020, confirmed 1/24/2020. report date 1/25/2020.', 'First confirmed imported COVID-19 pneumonia patient in Shanghai (from Wuhan): female, 56, Wuhan residence, arrived in Shanghai from Wuhan on 01/12/2020, symptom onset and visited fever clinic on 01/15/2020, laboratory confirmed on 01/20/2020', 'new confirmed COVID-19 patient in Queensland, Australia: female, 37, hospital, same member of tour group as four other people in the state', 'new confirmed COVID-19 patient in Japan: male, in his 40s, Wuhan resident, arrived in Japan 1/19/2020, symptom onset 1/14/2020 (fever, sore throat), went to medical institution on 1/15 and 1/17, hospitalized 1/22/2020, confirmed 1/24/2020', 'new confirmed COVID-19 patient in Hong Kong: male, 25, lives in Kowloon City, now in hospital, had not travelled outside Hong Kong, symptom onset 1/28/2020 (cough, runny nose, diarrhea), went to hospital 1/29/2020', 'new confirmed COVID-19 patient in Belgium: evacuated from Wuhan on 2/2', 'new confirmed COVID-19 patient in US: California, evacuated from Wuhan 2/7'\}
+
+    \end{Verbatim}
+* Provide a pandas series of the different **symptom** values in the dataset.  Store this pandas series in **symp_vals**
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{symp\PYZus{}vals} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{symptom}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{c+c1}{\PYZsh{}Provide a pandas series of the counts for each symptom }
+          
+          \PY{n}{symp\PYZus{}vals} \PY{c+c1}{\PYZsh{} assure this looks right}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}160}]:} fever                                                          0.270370
+          fever, cough                                                   0.133333
+          cough                                                          0.051852
+          fever, malaise                                                 0.025926
+          fever, cough, malaise                                          0.022222
+          fever, sore throat                                             0.022222
+          fever, runny nose                                              0.011111
+          fever, cough, headache                                         0.011111
+          cough, fever                                                   0.011111
+          cough, shortness of breath                                     0.011111
+          fever, cough, sputum                                           0.011111
+          sore throat                                                    0.011111
+          fever, cough, sore throat                                      0.011111
+          fever, pneumonia                                               0.007407
+          feaver, cough, difficult in breathing                          0.007407
+          sore throat, fever                                             0.007407
+          chills                                                         0.007407
+          throat discomfort                                              0.007407
+          cough, malaise, shortness of breath                            0.007407
+          fatigue, fever                                                 0.007407
+          cough, malaise                                                 0.007407
+          fatigue                                                        0.007407
+          cough, sore throat                                             0.007407
+          fever, cough, sputum, dyspnea                                  0.007407
+          fever, headache                                                0.007407
+          throat pain, chills                                            0.003704
+          fever, thirst                                                  0.003704
+          fatigue, malaise, headache                                     0.003704
+          fever, cough, chills                                           0.003704
+          cold, fever, pneumonia                                         0.003704
+                                                                           {\ldots}   
+          cough, itchy throat                                            0.003704
+          fatigue, cold, fever, vomiting                                 0.003704
+          cough, fever, headache, nausea, vomiting, diarrhea             0.003704
+          sore throat, cough, fever                                      0.003704
+          fever, malaise, sore throat                                    0.003704
+          malaise, fever, headache                                       0.003704
+          fever, difficulty breathing                                    0.003704
+          chest discomfort                                               0.003704
+          fever, chills, sore throat, headache                           0.003704
+          fatigue, difficulty breathing                                  0.003704
+          fever, chills, sore throat, runny nose, shortness of breath    0.003704
+          fever, headache, malaise                                       0.003704
+          fever, vomiting, diarrhea                                      0.003704
+          cough, runny nose                                              0.003704
+          myalgia, fever                                                 0.003704
+          cough, joint pain                                              0.003704
+          cough, diarrhea, vomiting                                      0.003704
+          fever, cough, breathlessness                                   0.003704
+          fever, malaise, diarrhea, cough                                0.003704
+          fever, nasal discharge, headache                               0.003704
+          mild fever                                                     0.003704
+          cough, fever, joint pain                                       0.003704
+          headache, fever, malaise                                       0.003704
+          fever, abdominal pain, diarrhea                                0.003704
+          joint pain, muscle pain, cough, malaise                        0.003704
+          sore throat, fever, joint pain, dyspnea                        0.003704
+          fever, cough, sore throat, runny nose                          0.003704
+          fatigue, muscle pain, joint pain, fever                        0.003704
+          fever, cough, sputum, malaise                                  0.003704
+          difficulty breathing                                           0.003704
+          Name: symptom, Length: 108, dtype: float64
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  What can you conclude from the above plot? Change the dictionary to
+  mark True for the keys of any statements you can conclude, and False
+  for any of the statements you cannot conclude.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{sol} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coronavirus 2019 (COVID\PYZhy{}19) is characterized by mild symptoms including sore throat, cough, and fever.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Is the virus responsible for COVID\PYZhy{}19 transmissible by air ?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It may be more severe in some people and may lead to pneumonia or breathing difficulties.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Affected individuals may experience the following symptoms |sore|throat|cough|fever| breathing difficulties (severe cases)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{sol}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Coronavirus 2019 (COVID-19) is characterized by mild symptoms including sore throat, cough, and fever.': True, 'Is the virus responsible for COVID-19 transmissible by air ?': False, 'It may be more severe in some people and may lead to pneumonia or breathing difficulties.': True, 'Affected individuals may experience the following symptoms |sore|throat|cough|fever| breathing difficulties (severe cases)': True\}
+
+    \end{Verbatim}
+Now take a look at the summary statistics associated with the quantitative variables in your dataset. 
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}                 id  reporting\_date         age  If\_onset\_approximated  \textbackslash{}
+         count   888.000000             0.0  843.000000             560.000000   
+         mean     48.841216             NaN   49.483689               0.042857   
+         std      78.853528             NaN   18.255334               0.202716   
+         min       1.000000             NaN    0.250000               0.000000   
+         25\%      11.000000             NaN   35.000000               0.000000   
+         50\%      28.000000             NaN   51.000000               0.000000   
+         75\%      67.250000             NaN   64.000000               0.000000   
+         max    1443.000000             NaN   96.000000               1.000000   
+         
+                visiting\_Wuhan   from\_Wuhan  Unnamed: 20  Unnamed: 21  Unnamed: 22  \textbackslash{}
+         count     1085.000000  1081.000000          0.0          0.0          0.0   
+         mean         0.176959     0.144311          NaN          NaN          NaN   
+         std          0.381810     0.351567          NaN          NaN          NaN   
+         min          0.000000     0.000000          NaN          NaN          NaN   
+         25\%          0.000000     0.000000          NaN          NaN          NaN   
+         50\%          0.000000     0.000000          NaN          NaN          NaN   
+         75\%          0.000000     0.000000          NaN          NaN          NaN   
+         max          1.000000     1.000000          NaN          NaN          NaN   
+         
+                Unnamed: 23  Unnamed: 24  Unnamed: 25  
+         count          0.0          0.0          0.0  
+         mean           NaN          NaN          NaN  
+         std            NaN          NaN          NaN  
+         min            NaN          NaN          NaN  
+         25\%            NaN          NaN          NaN  
+         50\%            NaN          NaN          NaN  
+         75\%            NaN          NaN          NaN  
+         max            NaN          NaN          NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{df}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F47E0C88>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F440F278>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F4447278>],
+                 [<matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F42E2AC8>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F4420908>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F4420AC8>],
+                 [<matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F43B0080>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F43AEDA0>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F46D8470>],
+                 [<matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F46C9B00>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F58A41D0>,
+                  <matplotlib.axes.\_subplots.AxesSubplot object at 0x000001B4F58AB860>]],
+                dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.2f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{num\PYZus{}vars} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{symptom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{case\PYZus{}in\PYZus{}country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{link}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{num\PYZus{}vars}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}147}]:}   symptom case\_in\_country                                            summary  \textbackslash{}
+          1     NaN       1/20/2020  First confirmed imported COVID-19 pneumonia pa{\ldots}   
+          2     NaN       1/20/2020  First confirmed imported COVID-19 pneumonia pa{\ldots}   
+          3     NaN       1/21/2020  First confirmed imported cases in Zhejiang: pa{\ldots}   
+          4     NaN       1/21/2020  new confirmed imported COVID-19 pneumonia in T{\ldots}   
+          5     NaN       1/21/2020  new confirmed imported COVID-19 pneumonia in T{\ldots}   
+          
+                                                        source  \textbackslash{}
+          1               Shenzhen Municipal Health Commission   
+          2  Official Weibo of Shanghai Municipal Health Co{\ldots}   
+          3             Health Commission of Zhejiang Province   
+          4                                           人民日报官方微博   
+          5                                           人民日报官方微博   
+          
+                                                          link  
+          1  http://wjw.sz.gov.cn/wzx/202001/t20200120\_1898{\ldots}  
+          2  https://www.weibo.com/2372649470/IqogQhgfa?fro{\ldots}  
+          3  http://www.zjwjw.gov.cn/art/2020/1/21/art\_1202{\ldots}  
+          4        https://m.weibo.cn/status/4463235401268457?  
+          5        https://m.weibo.cn/status/4463235401268457?  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{n}{all\PYZus{}rm} \PY{o}{=} \PY{n}{num\PYZus{}vars}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} dataframe with rows for nan removed}
+          
+          \PY{n}{all\PYZus{}rm}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}148}]:}                                    symptom case\_in\_country  \textbackslash{}
+          195  feaver, cough, difficult in breathing       1/27/2020   
+          196  feaver, cough, difficult in breathing       1/27/2020   
+          197                                  fever       1/27/2020   
+          237                                  fever       1/15/2020   
+          241                                  fever       1/28/2020   
+          
+                                                         summary          source  \textbackslash{}
+          195  new recovered COVID-19 pneumonia patient in Hu{\ldots}            人民日报   
+          196  new recovered COVID-19 pneumonia patient in Hu{\ldots}            人民日报   
+          197  new recovered COVID-19 pneumonia patient in Sh{\ldots}            人民日报   
+          237  new confirmed COVID-19 patient in Japan: male,{\ldots}  HK World-Japan   
+          241  new confirmed COVID-19 patient in Japan: male,{\ldots}      Kyodo News   
+          
+                                                            link  
+          195        https://m.weibo.cn/status/4465382079294013?  
+          196        https://m.weibo.cn/status/4465382079294013?  
+          197        https://m.weibo.cn/status/4465385308652598?  
+          237  https://www3.nhk.or.jp/nhkworld/en/news/202001{\ldots}  
+          241  https://english.kyodonews.net/news/2020/01/e8f{\ldots}  
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
